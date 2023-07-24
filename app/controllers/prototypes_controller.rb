@@ -3,15 +3,16 @@ class PrototypesController < ApplicationController
   before_action :move_to_index, except: [:index, :show ,:search]
 
    def index
-    @prototype = Prototype.all
+    @prototypes = Prototype.all
    end
 
-   def new
+   def new 
       @prototype = Prototype.new
    end
 
    def create 
-      Prototype.create(prototype_params)
+      @prototype = Prototype.create(prototype_params)
+      redirect_to root_path
    end
 
    def destroy
@@ -39,7 +40,7 @@ class PrototypesController < ApplicationController
 
    private
    def prototype_params
-      params.require(:prototype).permit(:image, :catch_copy,:title).merge(user_id: current_user.id)
+      params.require(:prototype).permit(:image, :catch_copy,:title,:concept).merge(user_id: current_user.id)
    end
    
    def set_prototype
